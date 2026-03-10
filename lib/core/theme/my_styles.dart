@@ -11,6 +11,12 @@ class MyStyles {
     color: MyColors.mediumGrey,
     fontSize: 16.sp,
   );
+  static TextStyle font24RobotoOceanBlueBold = TextStyle(
+    fontFamily: "Roboto",
+    fontWeight: FontWeightHelper.bold,
+    color: MyColors.oceanBlue,
+    fontSize: 16.sp,
+  );
   static TextStyle font16RobotoBlackMedium = TextStyle(
     fontFamily: "Roboto",
     fontWeight: FontWeightHelper.medium,

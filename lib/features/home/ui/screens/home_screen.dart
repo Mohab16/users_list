@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:users_list/core/helpers/extensions.dart';
+import 'package:users_list/core/routing/routes.dart';
 import 'package:users_list/core/theme/my_colors.dart';
 import 'package:users_list/core/theme/my_styles.dart';
 import 'package:users_list/features/home/data/models/users_response_model.dart';
@@ -18,7 +20,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.oceanBlue,
-        leading: BackButton(color: MyColors.white),
+        leading: BackButton(
+          color: MyColors.white,
+          onPressed: () {
+            context.pushNamedAndRemoveUntil(
+              Routes.loginScreen,
+              predicate: (route) => false,
+            );
+          },
+        ),
         centerTitle: true,
         title: Text("Users", style: MyStyles.font40LuckiestGuyWhiteBold),
       ),
@@ -43,7 +53,9 @@ class HomeScreen extends StatelessWidget {
                           UsersSkeleton(),
                       newPageProgressIndicatorBuilder: (context) =>
                           const Center(
-                            child: CircularProgressIndicator.adaptive(),
+                            child: CircularProgressIndicator(
+                              color: MyColors.white,
+                            ),
                           ),
                       noItemsFoundIndicatorBuilder: (context) =>
                           const Center(child: Text('No users found.')),

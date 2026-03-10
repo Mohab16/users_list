@@ -9,8 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:users_list/core/theme/my_colors.dart';
 import 'package:users_list/core/theme/my_styles.dart';
 
-class VerifyBlocListener extends StatelessWidget {
-  const VerifyBlocListener({super.key});
+class VerificationBlocListener extends StatelessWidget {
+  const VerificationBlocListener({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class VerifyBlocListener extends StatelessWidget {
           loading: () => showDialog(
             context: context,
             builder: (context) =>
-                Center(child: CircularProgressIndicator.adaptive()),
+                Center(child: CircularProgressIndicator(color: MyColors.white)),
           ),
           success: (data) {
             context.pop();

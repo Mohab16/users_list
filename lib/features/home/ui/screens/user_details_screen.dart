@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:users_list/core/helpers/spacing.dart';
 import 'package:users_list/core/theme/my_colors.dart';
 import 'package:users_list/core/theme/my_styles.dart';
 
@@ -14,39 +14,50 @@ class UserDetailsScreen extends StatelessWidget {
       backgroundColor: MyColors.oceanBlue,
       appBar: AppBar(
         backgroundColor: MyColors.oceanBlue,
-        leading: BackButton(color: MyColors.white),
+        elevation: 0,
+        leading: const BackButton(color: Colors.white),
         centerTitle: true,
-        title: Text("User details", style: MyStyles.font40LuckiestGuyWhiteBold),
+        title: Text("User Details", style: MyStyles.font40LuckiestGuyWhiteBold),
       ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20.w),
           child: Container(
-            height: 120.h,
             width: double.infinity,
-            padding: EdgeInsets.all(15.w),
+            padding: EdgeInsets.all(24.w),
             decoration: BoxDecoration(
-              color: MyColors.white,
-              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
             ),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Name:  ${item.data.name}",
-                  style: MyStyles.font16RobotoBlackSemiBold,
+                Center(
+                  child: Text(
+                    item.data.name ?? 'Unknown Name',
+                    style: MyStyles.font24RobotoOceanBlueBold,
+                  ),
                 ),
-                Text(
-                  "Email:  ${item.data.email}",
-                  style: MyStyles.font16RobotoBlackSemiBold,
-                ),
-                Text(
-                  "Role:  ${item.data.role}",
-                  style: MyStyles.font16RobotoBlackSemiBold,
-                ),
-                Text(
-                  "Created at: ${item.createdAt}",
-                  style: MyStyles.font16RobotoBlackSemiBold,
+                Divider(height: 30.h, color: Colors.grey.withOpacity(0.3)),
+
+                _buildInfoRow(Icons.email_outlined, "Email", item.data.email),
+                verticalSpacing(16),
+
+                _buildInfoRow(Icons.work_outline, "Role", item.data.role),
+                verticalSpacing(16),
+
+                _buildInfoRow(
+                  Icons.calendar_today_outlined,
+                  "Created at",
+                  _formatDate(item.createdAt),
                 ),
               ],
             ),
@@ -54,5 +65,48 @@ class UserDetailsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildInfoRow(IconData icon, String label, String? value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.all(8.w),
+          decoration: BoxDecoration(
+            color: MyColors.oceanBlue.withOpacity(0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, color: MyColors.oceanBlue, size: 20.sp),
+        ),
+        horizontalSpacing(16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: MyStyles.font16RobotoBlackSemiBold.copyWith(
+                  color: Colors.grey[600],
+                  fontSize: 14.sp,
+                ),
+              ),
+              verticalSpacing(4),
+              Text(
+                value ?? 'N/A',
+                style: MyStyles.font16RobotoBlackSemiBold.copyWith(
+                  fontSize: 16.sp,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  String _formatDate(String? rawDate) {
+    if (rawDate == null) return "Unknown";
+    return rawDate.split('T').first;
   }
 }

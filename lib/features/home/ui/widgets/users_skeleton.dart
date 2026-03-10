@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:users_list/core/helpers/spacing.dart';
+import 'package:users_list/core/theme/my_colors.dart';
+import 'package:users_list/core/theme/my_styles.dart';
 
 class UsersSkeleton extends StatelessWidget {
   const UsersSkeleton({super.key});
@@ -8,20 +12,42 @@ class UsersSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Skeletonizer(
       enabled: true,
+      effect: ShimmerEffect(
+        baseColor: Colors.grey[200]!,
+        highlightColor: Colors.grey[400]!,
+      ),
       child: Column(
         children: List.generate(
           5,
-          (index) => Card(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ListTile(
-              leading: const CircleAvatar(child: Text('AH')),
-              title: const Text('Ahmed Hassan Mohamed'),
-              subtitle: const Text('ahmed.hassan@gmail.com'),
-              trailing: Chip(
-                label: const Text('admin', style: TextStyle(fontSize: 12)),
-                backgroundColor: Colors.blue[100],
+          (index) => Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Container(
+                  width: double.infinity,
+                  height: 70.h,
+                  decoration: BoxDecoration(
+                    color: MyColors.white,
+                    borderRadius: BorderRadius.circular(20.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: MyColors.indigo.withOpacity(0.4),
+                        spreadRadius: 2,
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Loading User Name',
+                      style: MyStyles.font16RobotoBlackSemiBold,
+                    ),
+                  ),
+                ),
               ),
-            ),
+              verticalSpacing(15),
+            ],
           ),
         ),
       ),

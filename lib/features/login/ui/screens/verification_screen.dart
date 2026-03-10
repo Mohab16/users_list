@@ -8,7 +8,7 @@ import 'package:users_list/core/theme/my_styles.dart';
 import 'package:users_list/features/login/data/models/login_request_body_model.dart';
 import 'package:users_list/features/login/logic/cubit/login_cubit.dart';
 import 'package:users_list/features/login/ui/widgets/custom_pin_put.dart';
-import 'package:users_list/features/login/ui/widgets/verify_bloc_listener.dart';
+import 'package:users_list/features/login/ui/widgets/verification_bloc_listener.dart';
 
 class VerificationScreen extends StatefulWidget {
   final String email;
@@ -99,7 +99,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                     ),
             ),
             verticalSpacing(70),
-            VerifyBlocListener(),
+            VerificationBlocListener(),
           ],
         ),
       ),
