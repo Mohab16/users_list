@@ -1,0 +1,10 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'verification_state.freezed.dart';
+
+@Freezed()
+class VerificationState<T> with _$VerificationState {
+  const factory VerificationState.initial() = _Initial;
+  const factory VerificationState.loading() = Loading;
+  const factory VerificationState.success(T data) = Success<T>;
+  const factory VerificationState.error({required String error}) = Error;
+}
