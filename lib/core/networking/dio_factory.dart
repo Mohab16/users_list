@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioFactory {
@@ -28,8 +29,7 @@ class DioFactory {
     dio!.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final apiKey =
-              "pub_46f5741bad0ded16c31ed1bf0150b871e8e5dabd44955e4eee95b1148ac3afd6";
+          final apiKey = dotenv.env['API_KEY'] ?? '';
 
           options.headers['x-api-key'] = apiKey;
 

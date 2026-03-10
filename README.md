@@ -18,6 +18,7 @@ A modern, scalable Flutter application demonstrating clean architecture, advance
 * **Responsive UI**: [flutter_screenutil](https://pub.dev/packages/flutter_screenutil)
 * **UI Skeletons**: [skeletonizer](https://pub.dev/packages/skeletonizer)
 * **Pin Input**: [pinput](https://pub.dev/packages/pinput)
+* **Environment Variables**: [flutter_dotenv](https://pub.dev/packages/flutter_dotenv) — keeps sensitive keys (e.g. API key) out of source control
 
 ## 🏗️ Folder Structure
 ```text
@@ -63,12 +64,20 @@ cd users_list
 flutter pub get
 ```
 
-4. Generate the required files (Freezed, JSON Serializable, Retrofit):
+4. Set up your environment variables:
+   - Create a `.env` file in the project root (it is **git-ignored** and never committed):
+   ```env
+   BASE_URL=https://your-api-base-url.com/
+   API_KEY=your_api_key_here
+   ```
+   > ⚠️ **Never commit your `.env` file.** The API key is loaded at runtime via `flutter_dotenv` and is not embedded in the source code.
+
+5. Generate the required files (Freezed, JSON Serializable, Retrofit):
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-5. Run the app:
+6. Run the app:
 ```bash
 flutter run
 ```
